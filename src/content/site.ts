@@ -20,13 +20,22 @@ export const site = {
 };
 
 // Əsas menyu (karnegi.az saytındakı struktur)
-export type NavItem = { label: string; href: string; children?: { title: string; href: string; links: { label: string; href: string }[] }[] };
+// children: alt menyu qrupları. title/href verilməyən tək qrup sadə siyahı kimi göstərilir.
+export type NavItem = { label: string; href: string; children?: { title?: string; href?: string; links: { label: string; href: string }[] }[] };
 
 export const about = [
   "“Karnegi Klub” Treninq Mərkəzi 2011-ci ildə Dr. Nəcəf Allahverdiyev tərəfindən təsis edilib. Mərkəzdə fərdi, qrup və korporativ formatlarda “Xarizmatik Natiq”, “Ünsiyyət bacarıqları”, “Effektiv satış”, “Zamanın idarə olunması”, “Mind Mapping”, “Psixoloji aykido”, “İdeyalar generatoru”, “Kreativ düşüncə”, “Motivasiya” və digər mövzularda treninqlər keçirilir. Bu treninqlərdə 10 000-dən çox insan iştirak edib.",
   "Korporativ sektorda müasir və innovativ tədris üslublarını tətbiq edirik. Məqsəd işçilərin motivasiyasını artırmaq, komanda əhval-ruhiyyəsini yüksəltmək, ünsiyyət, təqdimat və satış bacarıqlarını gücləndirməkdir. Nəticədə müştəri məmnuniyyəti və təşkilatın gəlirləri artır.",
   "Mərkəzdə həmçinin fərdi və anonim şəkildə çıxış və təqdimatlara hazırlıq, biznes və layf kouç sessiyaları keçirilir.",
 ];
+
+// Ana səhifədə header-dən sonra avtomatik oxunan video (Instagram: karnegi_akademiya)
+export const heroVideo = {
+  src: "/video/tanitim.mp4",
+  poster: "/video/tanitim.jpg",
+  label: "Dr. Nəcəf Allahverdiyevin video müraciəti",
+  source: "https://www.instagram.com/p/CnZRA8Gr1Pt/",
+};
 
 export const photos = {
   portrait: "/images/necef-portret.jpg",
@@ -193,6 +202,28 @@ export const clients = [
   "Xarici İşlər Nazirliyi",
 ];
 
+// Müştəri loqoları (karnegi.az saytından). name boşdursa, loqo adsız göstərilir.
+export const clientLogos = [
+  { src: "/images/musteriler/01.jpg", name: "Podium" },
+  { src: "/images/musteriler/02.jpg", name: "Lexus" },
+  { src: "/images/musteriler/03.jpg", name: "Caspel" },
+  { src: "/images/musteriler/04.jpg", name: "189 Taxi" },
+  { src: "/images/musteriler/05.jpg", name: "" },
+  { src: "/images/musteriler/06.jpg", name: "SAT Group" },
+  { src: "/images/musteriler/07.jpg", name: "Panda School" },
+  { src: "/images/musteriler/08.jpg", name: "İrəli İctimai Birliyi" },
+  { src: "/images/musteriler/09.jpg", name: "BOT Bioloji Təbabət" },
+  { src: "/images/musteriler/10.jpg", name: "Caspident" },
+  { src: "/images/musteriler/11.jpg", name: "Tiens" },
+  { src: "/images/musteriler/12.jpg", name: "" },
+  { src: "/images/musteriler/13.jpg", name: "Progress Academy" },
+  { src: "/images/musteriler/14.png", name: "Red Bull" },
+  { src: "/images/musteriler/15.png", name: "Toyota" },
+  { src: "/images/musteriler/16.png", name: "Təmiz Dünya" },
+  { src: "/images/musteriler/17.jpg", name: "" },
+  { src: "/images/musteriler/18.png", name: "" },
+];
+
 export const reviews = [
   {
     text: "Təlim mənə auditoriya qarşısında sərbəst çıxış etməyin sirlərini öyrətdi. Bu təlimdən sonra natiqlik yarışmasında qalib oldum.",
@@ -323,8 +354,17 @@ export const nav: NavItem[] = [
     ],
   },
   { label: "Tədbirlər", href: "/tedbirler" },
-  { label: "Qalereya", href: "/qalereya" },
-  { label: "VideoBloq", href: "/videobloq" },
-  { label: "Haqqımızda", href: "/haqqimizda" },
+  {
+    label: "Haqqımızda",
+    href: "/haqqimizda",
+    children: [
+      {
+        links: [
+          { label: "Qalereya", href: "/qalereya" },
+          { label: "VideoBloq", href: "/videobloq" },
+        ],
+      },
+    ],
+  },
   { label: "Əlaqə", href: "/elaqe" },
 ];

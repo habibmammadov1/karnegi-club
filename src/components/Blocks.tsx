@@ -1,6 +1,6 @@
 import Link from "next/link";
 import ContactForm from "@/components/ContactForm";
-import { programs, reviews, site } from "@/content/site";
+import { clientLogos, programs, reviews, site } from "@/content/site";
 
 // Daxili səhifələrin başlıq hissəsi
 export function PageHero({ title, lead, crumbs = [] }: { title: string; lead?: string; crumbs?: { label: string; href: string }[] }) {
@@ -92,6 +92,26 @@ export function CtaBand({ title = "Növbəti qrupa yazılın", text = "Təlim c�
           Müraciət et
         </Link>
       </div>
+    </section>
+  );
+}
+
+// Müştəri loqoları
+export function ClientLogos({ title = "Müştərilərimiz" }: { title?: string }) {
+  return (
+    <section className="section wrap">
+      <div className="section__head">
+        <h2 className="h2">{title}</h2>
+        <p className="section__lead">Təlimlərimizdən faydalanan şirkət və təşkilatlar.</p>
+      </div>
+      <ul className="logos">
+        {clientLogos.map((c) => (
+          <li key={c.src}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={c.src} alt={c.name || "Müştəri loqosu"} width={190} height={110} loading="lazy" />
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Stories from "@/components/Stories";
 import VoiceWave from "@/components/VoiceWave";
-import { CtaBand, ProgramList, ReviewCards } from "@/components/Blocks";
-import { facts, photos, site, stories, trainer } from "@/content/site";
+import HeroVideo from "@/components/HeroVideo";
+import { ClientLogos, CtaBand, ProgramList, ReviewCards } from "@/components/Blocks";
+import { facts, heroVideo, photos, site, stories, trainer } from "@/content/site";
 
 export default function Home() {
   const jsonLd = {
@@ -21,6 +22,10 @@ export default function Home() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
+      <section className="wrap hvideo-wrap">
+        <HeroVideo src={heroVideo.src} poster={heroVideo.poster} label={heroVideo.label} />
+      </section>
 
       <section className="wrap">
         <Stories stories={stories} />
@@ -90,6 +95,8 @@ export default function Home() {
         </div>
         <ReviewCards limit={3} />
       </section>
+
+      <ClientLogos />
 
       <CtaBand />
     </>

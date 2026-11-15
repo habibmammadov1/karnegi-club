@@ -26,11 +26,12 @@ docker compose up --build
 ## Struktur
 
 ```
-public/images/         logo, təlimçinin şəkilləri, qalereya/
+public/images/         logo, təlimçinin şəkilləri, qalereya/, musteriler/ (loqolar)
+public/video/          ana səhifə videosu
 src/
   app/                 səhifələr: / , /telimler, /telimler/[slug], /korporativ, /fikirler,
                        /tedbirler, /qalereya, /videobloq, /haqqimizda, /elaqe, sitemap, robots
-  components/          Header (üst zolaq + menyu), Footer, Blocks (ortaq bloklar),
+  components/          Header (üst zolaq + menyu), Footer, Blocks (ortaq bloklar), HeroVideo,
                        Stories (story baxıcısı), ContactForm, VoiceWave
   content/site.ts      bütün məzmun: menyu, təlimlər, rəylər, story-lər, qalereya, əlaqə
   fonts/               Gilroy

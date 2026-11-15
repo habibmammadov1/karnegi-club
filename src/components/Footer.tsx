@@ -26,7 +26,8 @@ export default function Footer() {
           <p className="footer__h">Səhifələr</p>
           <ul>
             {nav
-              .filter((n) => n.href !== "/" && !n.children)
+              .filter((n) => n.href !== "/" && n.href !== "/telimler")
+              .flatMap((n) => [n, ...(n.children?.flatMap((g) => g.links) ?? [])])
               .map((n) => (
                 <li key={n.href}>
                   <Link href={n.href}>{n.label}</Link>

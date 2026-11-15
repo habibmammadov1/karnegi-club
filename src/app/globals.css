@@ -145,9 +145,9 @@ img {
 
 /* ---------- Header (karnegi.az quruluşu: üst zolaq + menyu) ---------- */
 .topbar {
-  background: var(--blue);
-  color: var(--white);
-  font-size: 14px;
+  background: #042a40;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 13.5px;
   font-weight: 500;
 }
 .topbar__inner {
@@ -155,7 +155,7 @@ img {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  min-height: 42px;
+  min-height: 40px;
 }
 .topbar__info {
   display: flex;
@@ -167,10 +167,13 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 7px;
+  transition: color 0.2s;
+}
+.topbar__info svg {
+  color: #4cc3f7;
 }
 .topbar__info a:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  color: var(--white);
 }
 .topbar__social {
   display: flex;
@@ -179,13 +182,14 @@ img {
 .topbar__social a {
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, color 0.2s;
 }
 .topbar__social a:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--blue);
+  color: var(--white);
 }
 .topbar :focus-visible,
 .header :focus-visible {
@@ -196,8 +200,9 @@ img {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: var(--navy);
+  background: linear-gradient(100deg, #05324d 0%, #07486f 52%, #0a6497 100%);
   color: var(--white);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 10px 30px -18px rgba(4, 42, 64, 0.9);
 }
 .header__inner {
   position: relative;
@@ -218,47 +223,87 @@ img {
 .nav__list {
   display: flex;
   align-items: center;
+  gap: 2px;
 }
 .nav__link {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  height: 84px;
+  height: 44px;
   padding: 0 14px;
-  border: 0;
-  background: none;
-  cursor: pointer;
+  border-radius: 999px;
   font: 700 15px/1 var(--text);
-  color: rgba(255, 255, 255, 0.84);
-  transition: color 0.2s;
+  color: rgba(255, 255, 255, 0.82);
+  transition: color 0.2s, background-color 0.2s;
 }
 .nav__link::after {
   content: "";
   position: absolute;
   left: 14px;
   right: 14px;
-  bottom: 24px;
+  bottom: 6px;
   height: 2px;
   border-radius: 2px;
-  background: #3db9f2;
+  background: #4cc3f7;
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.25s;
 }
 .nav__link:hover,
+.nav__item--drop.is-open > .nav__link {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.1);
+}
 .nav__link.is-active {
   color: var(--white);
 }
-.nav__link:hover::after,
 .nav__link.is-active::after {
   transform: scaleX(1);
 }
-.nav__caret {
-  opacity: 0.7;
+/* Sonuncu bənd (Əlaqə): brend rəngində düymə */
+.nav__link--cta {
+  margin-left: 10px;
+  padding: 0 22px;
+  background: var(--blue);
+  color: var(--white);
+  box-shadow: 0 8px 20px -10px rgba(1, 139, 207, 0.9);
+}
+.nav__link--cta:hover,
+.nav__link--cta.is-active {
+  background: #19a4e3;
+}
+.nav__link--cta::after {
+  display: none;
 }
 .nav__item--drop {
   position: relative;
+  display: flex;
+  align-items: center;
+  height: 84px;
+}
+.nav__item--drop > .nav__link {
+  padding-right: 30px;
+}
+.nav__toggle {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  margin-top: -13px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: transform 0.25s, color 0.2s;
+}
+.nav__item--drop.is-open .nav__toggle {
+  transform: rotate(180deg);
+  color: var(--white);
 }
 .drop {
   position: absolute;
@@ -271,12 +316,23 @@ img {
   padding: 26px 30px;
   background: var(--white);
   color: var(--ink);
+  border-top: 3px solid var(--blue);
   border-radius: 0 0 var(--r-md) var(--r-md);
   box-shadow: 0 28px 56px -20px rgba(6, 43, 64, 0.35);
   opacity: 0;
   visibility: hidden;
   transform: translateY(6px);
   transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+}
+/* Enli menyu bəndin sağ kənarına bağlanır ki, ekrandan çıxmasın */
+.drop:not(.drop--simple) {
+  left: auto;
+  right: -40px;
+}
+.drop--simple {
+  grid-template-columns: 1fr;
+  width: 220px;
+  padding: 14px 22px;
 }
 .nav__item--drop.is-open .drop {
   opacity: 1;
@@ -342,6 +398,63 @@ img {
 }
 .burger.is-open span:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ---------- Ana səhifə videosu ---------- */
+.hvideo-wrap {
+  padding-top: clamp(16px, 2.4vw, 28px);
+}
+.hvideo {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  max-height: min(72vh, 680px);
+  width: 100%;
+  margin-inline: auto;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--ink);
+}
+.hvideo__media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+}
+.hvideo__controls {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  display: flex;
+  gap: 8px;
+}
+.hvideo__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 44px;
+  height: 44px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(4, 42, 64, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--white);
+  font: 700 14px/1 var(--text);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.hvideo__btn--sound {
+  padding: 0 18px 0 14px;
+  background: var(--blue);
+}
+.hvideo__btn:hover {
+  background: var(--deep);
+}
+.hvideo :focus-visible {
+  outline-color: var(--white);
 }
 
 /* ---------- Stories ---------- */
@@ -1258,6 +1371,31 @@ img {
 .gallery li:hover img {
   transform: scale(1.04);
 }
+.logos {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+.logos li {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 190 / 110;
+  min-width: 0;
+  padding: 10px 14px;
+  border-radius: var(--r-md);
+  border: 1.5px solid var(--mist);
+  background: var(--white);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.logos li:hover {
+  border-color: var(--sky);
+  box-shadow: 0 14px 28px -18px rgba(6, 43, 64, 0.4);
+}
+.logos img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 .duo {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1368,18 +1506,39 @@ img {
     flex-direction: column;
     align-items: stretch;
   }
-  .nav__link {
+  .nav__list {
+    gap: 0;
+  }
+  .nav__link,
+  .nav__item--drop > .nav__link {
     width: 100%;
     height: 52px;
     padding: 0;
+    border-radius: 0;
     font-size: 18px;
   }
+  .nav__link:hover,
+  .nav__item--drop.is-open > .nav__link {
+    background: none;
+  }
   .nav__link::after,
-  .nav__caret {
+  .nav__toggle {
     display: none;
   }
   .nav__link.is-active {
     color: #7fd0f4;
+  }
+  .nav__link--cta,
+  .nav__link--cta:hover {
+    justify-content: center;
+    margin: 14px 0 0;
+    border-radius: 999px;
+    background: var(--blue);
+    color: var(--white);
+  }
+  .nav__item--drop {
+    display: block;
+    height: auto;
   }
   .drop {
     position: static;
@@ -1392,6 +1551,8 @@ img {
     background: none;
     color: var(--white);
     border-radius: 0;
+    right: auto;
+    border-top: 0;
     border-left: 2px solid rgba(255, 255, 255, 0.2);
     box-shadow: none;
     opacity: 1;
@@ -1423,6 +1584,9 @@ img {
   .gallery {
     grid-template-columns: repeat(3, 1fr);
   }
+  .logos {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
   .hero,
   .trainer,
   .corp,
@@ -1447,6 +1611,17 @@ img {
   .topbar__info li:not(:first-child) {
     display: none;
   }
+  .hvideo-wrap {
+    padding-inline: 0;
+    padding-top: 0;
+  }
+  .hvideo {
+    border-radius: 0;
+  }
+  .hvideo__controls {
+    left: 12px;
+    bottom: 12px;
+  }
   .rgrid,
   .cards,
   .duo {
@@ -1455,6 +1630,13 @@ img {
   .gallery {
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
+  }
+  .logos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .logos li {
+    padding: 6px 8px;
   }
   .story-chip {
     width: 72px;

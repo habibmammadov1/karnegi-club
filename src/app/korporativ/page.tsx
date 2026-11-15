@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Apply, PageHero } from "@/components/Blocks";
-import { clients, corporate } from "@/content/site";
+import { Apply, ClientLogos, PageHero } from "@/components/Blocks";
+import { corporate } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Korporativ təlimlər",
@@ -26,16 +26,7 @@ export default function CorporatePage() {
           ))}
         </ul>
       </section>
-      <section className="wrap section">
-        <div className="section__head">
-          <h2 className="h2">Bizə etibar edənlər</h2>
-        </div>
-        <ul className="clients" aria-label="Təlim keçdiyimiz şirkətlər">
-          {clients.map((c) => (
-            <li key={c}>{c}</li>
-          ))}
-        </ul>
-      </section>
+      <ClientLogos title="Bizə etibar edənlər" />
       <Apply title="Korporativ təklif alın" text="Komandanız və məqsədiniz barədə qısaca yazın, sizə uyğun proqram təklif edək." />
     </>
   );

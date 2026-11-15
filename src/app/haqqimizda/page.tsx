@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { CtaBand, PageHero } from "@/components/Blocks";
-import { about, clients, facts, photos, trainer } from "@/content/site";
+import { ClientLogos, CtaBand, PageHero } from "@/components/Blocks";
+import { about, facts, photos, trainer } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Haqqımızda",
@@ -66,16 +66,7 @@ export default function AboutPage() {
         </ul>
       </section>
 
-      <section className="section wrap">
-        <div className="section__head">
-          <h2 className="h2">Bizə etibar edənlər</h2>
-        </div>
-        <ul className="clients" aria-label="Təlim keçdiyimiz şirkətlər">
-          {clients.map((c) => (
-            <li key={c}>{c}</li>
-          ))}
-        </ul>
-      </section>
+      <ClientLogos title="Bizə etibar edənlər" />
 
       <CtaBand />
     </>

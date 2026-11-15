@@ -3,32 +3,33 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { nav, site } from "@/content/site";
+import { nav, site, type NavItem } from "@/content/site";
 
 const tel = (p: string) => `tel:${p.replace(/\s/g, "")}`;
 
-function isActive(pathname: string, href: string, hasChildren: boolean) {
-  if (href === "/") return pathname === "/";
-  if (hasChildren) return ["/telimler", "/korporativ", "/fikirler"].some((p) => pathname.startsWith(p));
-  return pathname.startsWith(href);
+// Bənd özü və ya alt menyusundakı hər hansı səhifə açıqdırsa aktivdir
+function isActive(pathname: string, item: NavItem) {
+  if (item.href === "/") return pathname === "/";
+  const hrefs = [item.href, ...(item.children ?? []).flatMap((g) => [...(g.href ? [g.href] : []), ...g.links.map((l) => l.href)])];
+  return hrefs.some((h) => pathname === h || pathname.startsWith(`${h}/`));
 }
 
 export default function Header() {
   const pathname = usePathname();
   const [menu, setMenu] = useState(false); // mobil menyu
-  const [drop, setDrop] = useState(false); // "Təlimlər" alt menyusu
+  const [drop, setDrop] = useState<string | null>(null); // açıq alt menyu (href)
 
   // Səhifə dəyişəndə menyuları bağla
   useEffect(() => {
     setMenu(false);
-    setDrop(false);
+    setDrop(null);
   }, [pathname]);
 
   useEffect(() => {
     if (!drop && !menu) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        setDrop(false);
+        setDrop(null);
         setMenu(false);
       }
     };
@@ -100,42 +101,52 @@ export default function Header() {
 
           <nav id="main-nav" className={`nav${menu ? " is-open" : ""}`} aria-label="Əsas menyu">
             <ul className="nav__list">
-              {nav.map((item) => {
-                const active = isActive(pathname, item.href, !!item.children);
-                if (!item.children)
-                  return (
-                    <li key={item.href}>
-                      <Link href={item.href} className={`nav__link${active ? " is-active" : ""}`} aria-current={active ? "page" : undefined}>
-                        {item.label}
-                      </Link>
-                    </li>
-                  );
+              {nav.map((item, i) => {
+                const active = isActive(pathname, item);
+                const cta = i === nav.length - 1; // sonuncu bənd (Əlaqə) düymə kimi
+                const link = (
+                  <Link
+                    href={item.href}
+                    className={`nav__link${active ? " is-active" : ""}${cta ? " nav__link--cta" : ""}`}
+                    aria-current={pathname === item.href ? "page" : undefined}
+                  >
+                    {item.label}
+                  </Link>
+                );
+                if (!item.children) return <li key={item.href}>{link}</li>;
+
+                const open = drop === item.href;
+                const simple = item.children.length === 1 && !item.children[0].title;
+                const id = `drop-${i}`;
                 return (
                   <li
                     key={item.href}
-                    className={`nav__item--drop${drop ? " is-open" : ""}`}
-                    onMouseEnter={() => setDrop(true)}
-                    onMouseLeave={() => setDrop(false)}
+                    className={`nav__item--drop${open ? " is-open" : ""}`}
+                    onMouseEnter={() => setDrop(item.href)}
+                    onMouseLeave={() => setDrop(null)}
                   >
+                    {link}
                     <button
                       type="button"
-                      className={`nav__link${active ? " is-active" : ""}`}
-                      aria-expanded={drop}
-                      aria-controls="nav-drop"
+                      className="nav__toggle"
+                      aria-expanded={open}
+                      aria-controls={id}
+                      aria-label={`${item.label} alt menyusu`}
                       // Siçan/toxunuş açır (hover artıq açıb), klaviatura açıb-bağlayır
-                      onClick={(e) => setDrop(e.detail === 0 ? !drop : true)}
+                      onClick={(e) => setDrop(e.detail === 0 && open ? null : item.href)}
                     >
-                      {item.label}
-                      <svg className="nav__caret" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true">
                         <path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </button>
-                    <div id="nav-drop" className="drop">
-                      {item.children.map((group) => (
-                        <div key={group.href} className="drop__group">
-                          <Link href={group.href} className="drop__title">
-                            {group.title}
-                          </Link>
+                    <div id={id} className={`drop${simple ? " drop--simple" : ""}`}>
+                      {item.children.map((group, g) => (
+                        <div key={g} className="drop__group">
+                          {group.title && group.href && (
+                            <Link href={group.href} className="drop__title">
+                              {group.title}
+                            </Link>
+                          )}
                           {group.links.length > 0 && (
                             <ul>
                               {group.links.map((l) => (
