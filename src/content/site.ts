@@ -204,6 +204,58 @@ export const clients = [
   "Xarici İşlər Nazirliyi",
 ];
 
+// Tədbirlər: sağdakı kartlarda və /tedbirler səhifəsində göstərilir.
+// Tədbir keçəndən sonra onu bu siyahıdan silin, yenisini əlavə edin.
+export type EventItem = {
+  id: string;
+  kind: string;
+  title: string;
+  short: string; // kiçik kartdakı qısa ad
+  date: string;
+  time: string;
+  place: string;
+  image: string;
+  text: string;
+  points: string[];
+  link: string;
+  linkLabel: string;
+};
+
+export const events: EventItem[] = [
+  {
+    id: "amf-2026",
+    kind: "Forum",
+    title: "Ailə Münasibətləri Forumu — AMF 2026",
+    short: "Ailə Münasibətləri Forumu",
+    date: "15 noyabr",
+    time: "15:00–18:00",
+    place: "Avropa Azərbaycan Məktəbi (800 nəfərlik zal)",
+    image: "/images/tedbirler/amf-2026.jpg",
+    text: "Şəxsi inkişaf, ailə münasibətləri və uşaq tərbiyəsi forumu: 7 mütəxəssis, 7 fərqli baxış bucağı və bədii hissə. Dr. Nəcəf Allahverdiyev “1 ailə 2 dil” mövzusunda çıxış edir.",
+    points: [
+      "Beynəlxalq sertifikat, networking, coffee break",
+      "Bilet: 20, 30, 40 və 60 AZN",
+      "Məlumat və bilet sifarişi: (010) 515 14 00",
+    ],
+    link: "https://www.instagram.com/p/DfP_EJHNTfi/",
+    linkLabel: "Instagram-da bax",
+  },
+  {
+    id: "xezer-fm",
+    kind: "Radio efiri",
+    title: "Xəzər FM-də “Biznes adamı” verilişi",
+    short: "Xəzər FM: “Biznes adamı”",
+    date: "11 noyabr",
+    time: "17:00–18:00",
+    place: "Xəzər FM 103",
+    image: "/images/tedbirler/xezer-fm.jpg",
+    text: "Dr. Nəcəf Allahverdiyev və forumun təşkilatçısı İbrahim Allahverdiyev efirdə 15 noyabrda keçirilən MPF və AMF 2026 forumlarından danışırlar.",
+    points: [],
+    link: "https://www.instagram.com/p/DfmVtgyNm35/",
+    linkLabel: "Instagram-da bax",
+  },
+];
+
 // Müştəri loqoları (karnegi.az saytından). name boşdursa, loqo adsız göstərilir.
 export const clientLogos = [
   { src: "/images/musteriler/01.jpg", name: "Podium" },

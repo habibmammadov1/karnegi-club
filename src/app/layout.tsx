@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
+import "@fontsource-variable/montserrat/index.css";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { EventsFloat } from "@/components/Events";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -24,28 +25,17 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-// Gilroy (Azərbaycan əlifbası üçün “ə” hərfi əlavə olunmuş versiya)
-const gilroy = localFont({
-  variable: "--font-gilroy",
-  display: "swap",
-  src: [
-    { path: "../fonts/gilroy-400.woff", weight: "400", style: "normal" },
-    { path: "../fonts/gilroy-500.woff", weight: "500", style: "normal" },
-    { path: "../fonts/gilroy-700.woff", weight: "700", style: "normal" },
-    { path: "../fonts/gilroy-800.woff", weight: "800", style: "normal" },
-  ],
-});
-
 export const viewport: Viewport = { themeColor: "#018BCF" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="az" className={gilroy.variable}>
+    <html lang="az">
       <body>
         <a className="skip" href="#main">Məzmuna keç</a>
         <Header />
         <main id="main">{children}</main>
         <Footer />
+        <EventsFloat />
         <WhatsAppButton />
       </body>
     </html>

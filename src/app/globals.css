@@ -8,8 +8,8 @@
   --ink-soft: #3d6178;
   --navy: #063a5a;
 
-  --display: var(--font-gilroy), "Gilroy", system-ui, sans-serif;
-  --text: var(--font-gilroy), "Gilroy", system-ui, sans-serif;
+  --display: "Montserrat Variable", "Montserrat", system-ui, sans-serif;
+  --text: "Montserrat Variable", "Montserrat", system-ui, sans-serif;
 
   --wrap: 1200px;
   --gutter: clamp(20px, 4vw, 40px);
@@ -1440,25 +1440,289 @@ img {
   right: clamp(16px, 2.4vw, 28px);
   bottom: clamp(16px, 2.4vw, 28px);
   z-index: 50;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  height: 58px;
-  padding: 0 22px 0 16px;
-  border-radius: 999px;
-  background: #25d366;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(150deg, #12a36b 0%, #0a7d57 100%);
   color: var(--white);
-  font-weight: 700;
-  font-size: 16px;
-  box-shadow: 0 16px 32px -12px rgba(18, 140, 70, 0.75);
-  transition: transform 0.2s, background-color 0.2s;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.9), 0 16px 30px -12px rgba(6, 80, 56, 0.8);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 .wa:hover {
-  background: #1ebe5a;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.9), 0 22px 36px -12px rgba(6, 80, 56, 0.9);
 }
 .wa:focus-visible {
   outline-color: var(--ink);
+  outline-offset: 6px;
+}
+
+/* ---------- Tədbir kartları (sağda) ---------- */
+.efloat {
+  position: fixed;
+  right: clamp(16px, 2.4vw, 28px);
+  bottom: calc(clamp(16px, 2.4vw, 28px) + 72px);
+  z-index: 45;
+  width: 272px;
+  padding: 12px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--sky);
+  box-shadow: 0 24px 48px -22px rgba(6, 43, 64, 0.5);
+}
+.efloat__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 2px 10px 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--deep);
+}
+.efloat__head button {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--mist);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+.efloat__head button:hover {
+  background: var(--sky);
+  color: var(--ink);
+}
+.efloat ul {
+  display: grid;
+  gap: 8px;
+}
+.ecard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--mist);
+  color: var(--ink);
+  font-family: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+.ecard:hover {
+  background: var(--sky);
+  transform: translateX(-3px);
+}
+.ecard img {
+  flex: none;
+  width: 52px;
+  height: 66px;
+  border-radius: 9px;
+  object-fit: cover;
+  object-position: 50% 0;
+}
+.ecard__text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.ecard__date {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--blue);
+}
+.ecard__title {
+  font-size: 14.5px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.efloat__reopen {
+  position: fixed;
+  right: clamp(16px, 2.4vw, 28px);
+  bottom: calc(clamp(16px, 2.4vw, 28px) + 72px);
+  z-index: 45;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 8px 0 16px;
+  border: 1px solid var(--sky);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--deep);
+  font: 700 14px/1 var(--text);
+  box-shadow: 0 14px 28px -16px rgba(6, 43, 64, 0.5);
+  cursor: pointer;
+}
+.efloat__reopen span {
+  display: grid;
+  place-items: center;
+  min-width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 13px;
+}
+
+/* Tədbir pəncərəsi */
+.emodal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(3, 30, 46, 0.82);
+  animation: fade 0.2s ease-out;
+  overflow-y: auto;
+}
+.emodal__card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+  width: min(920px, 100%);
+  max-height: calc(100dvh - 40px);
+  border-radius: var(--r-lg);
+  background: var(--white);
+  overflow: hidden;
+}
+.emodal__media {
+  background: var(--ink);
+}
+.emodal__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.emodal__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: clamp(24px, 3.4vw, 40px);
+  overflow-y: auto;
+}
+.emodal__kind {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--mist);
+  color: var(--deep);
+  font-size: 13px;
+  font-weight: 700;
+}
+.emodal__title {
+  padding-right: 36px;
+  font: 800 clamp(24px, 2.6vw, 32px) / 1.1 var(--display);
+  letter-spacing: -0.02em;
+}
+.emodal__meta {
+  display: grid;
+  gap: 0;
+  width: 100%;
+  border-top: 1px solid var(--sky);
+}
+.emodal__meta div {
+  display: flex;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--sky);
+}
+.emodal__meta dt {
+  flex: none;
+  width: 64px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+.emodal__meta dd {
+  font-weight: 700;
+}
+.emodal__text {
+  color: var(--ink-soft);
+}
+.emodal__points {
+  font-size: 15.5px;
+}
+.emodal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--mist);
+  color: var(--ink);
+  cursor: pointer;
+}
+.emodal__close:hover {
+  background: var(--sky);
+}
+
+/* Tədbirlər səhifəsi */
+.egrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.etile {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-lg);
+  background: var(--mist);
+  color: var(--ink);
+  font-family: var(--text);
+  text-align: left;
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.etile:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 26px 44px -26px rgba(6, 43, 64, 0.5);
+}
+.etile__media {
+  aspect-ratio: 4 / 5;
+}
+.etile__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.etile__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px;
+}
+.etile__title {
+  font: 700 clamp(19px, 1.8vw, 24px) / 1.15 var(--display);
+  letter-spacing: -0.01em;
+}
+.etile__place {
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+.etile .more {
+  margin-top: 6px;
 }
 
 /* ---------- Daxili səhifələr ---------- */
@@ -1790,8 +2054,33 @@ img {
   .gallery {
     grid-template-columns: repeat(3, 1fr);
   }
-  .tband {
+  .tband,
+  .egrid {
     grid-template-columns: 1fr;
+  }
+  /* Ensiz ekranda kartlar yalnız afişa kimi görünür */
+  .efloat {
+    width: auto;
+    padding: 8px;
+    border-radius: 18px;
+  }
+  .efloat__head {
+    display: none;
+  }
+  .ecard {
+    padding: 0;
+    background: none;
+  }
+  .ecard:hover {
+    background: none;
+    transform: scale(1.05);
+  }
+  .ecard__text {
+    display: none;
+  }
+  .ecard img {
+    width: 46px;
+    height: 58px;
   }
   .hero {
     overflow-x: clip;
@@ -1825,14 +2114,32 @@ img {
   .topbar__info li:not(:first-child) {
     display: none;
   }
-  .wa {
-    width: 58px;
+  .emodal {
     padding: 0;
-    justify-content: center;
+    place-items: stretch;
   }
-  .wa__label {
-    display: none;
+  .emodal__card {
+    grid-template-columns: 1fr;
+    max-height: none;
+    min-height: 100dvh;
+    border-radius: 0;
+    overflow: visible;
   }
+  .emodal__media img {
+    height: auto;
+    max-height: 62vh;
+    object-fit: contain;
+  }
+  .emodal__body {
+    overflow: visible;
+  }
+  .emodal__close {
+    position: fixed;
+  }
+  .etile {
+    grid-template-columns: 1fr;
+  }
+
   .hvideo-wrap {
     padding-inline: 0;
     padding-top: 40px;
