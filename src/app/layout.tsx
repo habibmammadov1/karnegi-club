@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource/unbounded/500.css";
-import "@fontsource/unbounded/600.css";
-import "@fontsource-variable/onest/index.css";
+import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -15,7 +13,6 @@ export const metadata: Metadata = {
   },
   description: site.description,
   keywords: ["natiqlik kursu", "natiqlik təlimi", "ünsiyyət təlimi", "şəxsi inkişaf", "satış təlimi", "korporativ təlim", "Bakı", "Karnegi Klub"],
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "az_AZ",
@@ -26,11 +23,23 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+// Gilroy (Azərbaycan əlifbası üçün “ə” hərfi əlavə olunmuş versiya)
+const gilroy = localFont({
+  variable: "--font-gilroy",
+  display: "swap",
+  src: [
+    { path: "../fonts/gilroy-400.woff", weight: "400", style: "normal" },
+    { path: "../fonts/gilroy-500.woff", weight: "500", style: "normal" },
+    { path: "../fonts/gilroy-700.woff", weight: "700", style: "normal" },
+    { path: "../fonts/gilroy-800.woff", weight: "800", style: "normal" },
+  ],
+});
+
 export const viewport: Viewport = { themeColor: "#018BCF" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="az">
+    <html lang="az" className={gilroy.variable}>
       <body>
         <a className="skip" href="#main">Məzmuna keç</a>
         <Header />

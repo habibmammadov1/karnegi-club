@@ -7,7 +7,7 @@ Karnegi Klub (Azərbaycan) üçün yeni sayt: natiqlik, ünsiyyət və şəxsi i
 - **Next.js 16** (App Router, TypeScript) — bütün səhifələr statik generasiya olunur
 - **PostgreSQL 17** — `docker-compose.yml`-də hazırdır, növbəti mərhələdə (admin panel, müraciətlər) qoşulacaq
 - **Docker** — `Dockerfile` (standalone build) və `docker-compose.yml` (web + db)
-- Şriftlər: Unbounded (başlıqlar) və Onest (mətn), Azərbaycan hərflərini tam dəstəkləyir
+- Şrift: Gilroy (`src/fonts/`, 400/500/700/800). Orijinal fayllarda “ə/Ə” hərfi olmadığı üçün bu hərflər fayllara əlavə edilib. Gilroy kommersiya şriftidir, saytda istifadə üçün veb lisenziyası lazımdır
 
 ## İşə salmaq
 
@@ -26,13 +26,17 @@ docker compose up --build
 ## Struktur
 
 ```
+public/images/         logo, təlimçinin şəkilləri, qalereya/
 src/
-  app/                 səhifələr (əsas səhifə, /telimler/[slug], sitemap, robots)
-  components/          Header, Footer, Stories (story baxıcısı), ContactForm, VoiceWave
-  content/site.ts      bütün məzmun: təlimlər, rəylər, story-lər, əlaqə
+  app/                 səhifələr: / , /telimler, /telimler/[slug], /korporativ, /fikirler,
+                       /tedbirler, /qalereya, /videobloq, /haqqimizda, /elaqe, sitemap, robots
+  components/          Header (üst zolaq + menyu), Footer, Blocks (ortaq bloklar),
+                       Stories (story baxıcısı), ContactForm, VoiceWave
+  content/site.ts      bütün məzmun: menyu, təlimlər, rəylər, story-lər, qalereya, əlaqə
+  fonts/               Gilroy
 ```
 
-Məzmunu dəyişmək üçün `src/content/site.ts` faylını redaktə edin. Story-lərə şəkil əlavə etmək üçün slayda `image: "/stories/fayl.jpg"` yazın və faylı `public/stories/` qovluğuna qoyun.
+Məzmunu dəyişmək üçün `src/content/site.ts` faylını redaktə edin. Menyu `nav` massivindən qurulur. Story-lərə şəkil əlavə etmək üçün slayda `image: "/images/fayl.jpg"` (dairə üçün `cover`) yazın və faylı `public/images/` qovluğuna qoyun.
 
 ## SEO
 

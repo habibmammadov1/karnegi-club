@@ -19,6 +19,40 @@ export const site = {
   },
 };
 
+// Əsas menyu (karnegi.az saytındakı struktur)
+export type NavItem = { label: string; href: string; children?: { title: string; href: string; links: { label: string; href: string }[] }[] };
+
+export const about = [
+  "“Karnegi Klub” Treninq Mərkəzi 2011-ci ildə Dr. Nəcəf Allahverdiyev tərəfindən təsis edilib. Mərkəzdə fərdi, qrup və korporativ formatlarda “Xarizmatik Natiq”, “Ünsiyyət bacarıqları”, “Effektiv satış”, “Zamanın idarə olunması”, “Mind Mapping”, “Psixoloji aykido”, “İdeyalar generatoru”, “Kreativ düşüncə”, “Motivasiya” və digər mövzularda treninqlər keçirilir. Bu treninqlərdə 10 000-dən çox insan iştirak edib.",
+  "Korporativ sektorda müasir və innovativ tədris üslublarını tətbiq edirik. Məqsəd işçilərin motivasiyasını artırmaq, komanda əhval-ruhiyyəsini yüksəltmək, ünsiyyət, təqdimat və satış bacarıqlarını gücləndirməkdir. Nəticədə müştəri məmnuniyyəti və təşkilatın gəlirləri artır.",
+  "Mərkəzdə həmçinin fərdi və anonim şəkildə çıxış və təqdimatlara hazırlıq, biznes və layf kouç sessiyaları keçirilir.",
+];
+
+export const photos = {
+  portrait: "/images/necef-portret.jpg",
+  heart: "/images/necef-urek.jpg",
+  stage: "/images/necef-sehne.jpg",
+  forum: "/images/necef-forum.jpg",
+};
+
+export const gallery = [
+  { src: "/images/qalereya/1.jpg", alt: "Dolu zalda keçirilən təlim" },
+  { src: "/images/qalereya/2.jpg", alt: "Uğur Forumu iştirakçılarının birgə şəkli" },
+  { src: "/images/qalereya/3.jpg", alt: "Təlimçi səhnədə, arxada iştirakçılar" },
+  { src: "/images/qalereya/4.jpg", alt: "İştirakçılar çıxışı dinləyir" },
+  { src: "/images/qalereya/5.jpg", alt: "Konfrans zalında masterklass" },
+  { src: "/images/qalereya/6.jpg", alt: "Təlimçi iştirakçıların arasında" },
+  { src: "/images/qalereya/7.jpg", alt: "Səhnədən zalın görünüşü" },
+  { src: "/images/qalereya/8.jpg", alt: "İştirakçı ilə praktiki tapşırıq" },
+];
+
+export const corporate = [
+  { title: "Ünsiyyət və təqdimat", text: "İclaslarda, müştəri qarşısında və səhnədə aydın, inamlı çıxış." },
+  { title: "Effektiv və psixoloji satış", text: "Müştərini dinləmək, etirazlarla işləmək və razılaşmanı bağlamaq." },
+  { title: "Motivasiya və komanda ruhu", text: "Kollektivdə xoş ab-hava, birgə işləmək vərdişi və daxili motivasiya." },
+  { title: "Fərdi hazırlıq", text: "Rəhbərlər üçün çıxışa fərdi və anonim hazırlıq, kouç sessiyaları." },
+];
+
 export const facts = [
   { value: "2011", label: "ildən fəaliyyətdəyik" },
   { value: "10 000+", label: "insan təlimlərimizdə iştirak edib" },
@@ -201,7 +235,8 @@ export type StorySlide = {
   cta?: { label: string; href: string };
 };
 
-export type Story = { id: string; label: string; mark: string; slides: StorySlide[] };
+// cover: dairədə görünən şəkil (yoxdursa "mark" mətni göstərilir)
+export type Story = { id: string; label: string; mark: string; cover?: string; slides: StorySlide[] };
 
 export const stories: Story[] = [
   {
@@ -209,9 +244,9 @@ export const stories: Story[] = [
     label: "Xarizmatik Natiq",
     mark: "Nq",
     slides: [
-      { kicker: "Yeni qrup", title: "Xarizmatik Natiq", body: "12 saat, 4 dərs. Auditoriya qarşısında sərbəst danışmağı öyrənin." },
+      { kicker: "Yeni qrup", title: "Xarizmatik Natiq", body: "12 saat, 4 dərs. Auditoriya qarşısında sərbəst danışmağı öyrənin.", image: "/images/necef-forum.jpg" },
       { kicker: "Format", title: "80% təcrübə", body: "Hər iştirakçı qrup önündə, cütlükdə və kiçik qruplarda dəfələrlə çıxış edir." },
-      { title: "Çıxış zamanı qorxuya yox", cta: { label: "Təlimə yazıl", href: "#muraciet" } },
+      { title: "Çıxış zamanı qorxuya yox", cta: { label: "Təlimə yazıl", href: "/elaqe#muraciet" } },
     ],
   },
   {
@@ -246,8 +281,10 @@ export const stories: Story[] = [
     id: "telimci",
     label: "Təlimçi",
     mark: "NA",
+    cover: "/images/necef-urek.jpg",
     slides: [
-      { kicker: "Təlimçi", title: "Dr. Nəcəf Allahverdiyev", body: "Biznes-trener, kouç, NLP-Master. Beynəlxalq Oratorlar Çempionatının mükafatçısı." },
+      { kicker: "Təlimçi", title: "Dr. Nəcəf Allahverdiyev", body: "Biznes-trener, kouç, NLP-Master. Beynəlxalq Oratorlar Çempionatının mükafatçısı.", image: "/images/necef-portret.jpg" },
+      { kicker: "Səhnədə", title: "2 000 təlim və masterklass", body: "6 000 saat, 30 000 iştirakçı.", image: "/images/necef-sehne.jpg", cta: { label: "Haqqımızda", href: "/haqqimizda" } },
     ],
   },
   {
@@ -263,7 +300,31 @@ export const stories: Story[] = [
     label: "Qeydiyyat",
     mark: "+",
     slides: [
-      { kicker: "Sual var?", title: "+994 55 444 14 00", body: "Zəng edin və ya müraciət formunu doldurun.", cta: { label: "Müraciət et", href: "#muraciet" } },
+      { kicker: "Sual var?", title: "+994 55 444 14 00", body: "Zəng edin və ya müraciət formunu doldurun.", cta: { label: "Müraciət et", href: "/elaqe#muraciet" } },
     ],
   },
+];
+
+export const nav: NavItem[] = [
+  { label: "Əsas səhifə", href: "/" },
+  {
+    label: "Təlimlər",
+    href: "/telimler",
+    children: [
+      {
+        title: "Açıq təlimlər",
+        href: "/telimler",
+        links: [
+          ...programs.map((p) => ({ label: p.title, href: `/telimler/${p.slug}` })),
+          { label: "Təlim haqda fikirlər", href: "/fikirler" },
+        ],
+      },
+      { title: "Korporativ təlimlər", href: "/korporativ", links: [] },
+    ],
+  },
+  { label: "Tədbirlər", href: "/tedbirler" },
+  { label: "Qalereya", href: "/qalereya" },
+  { label: "VideoBloq", href: "/videobloq" },
+  { label: "Haqqımızda", href: "/haqqimizda" },
+  { label: "Əlaqə", href: "/elaqe" },
 ];

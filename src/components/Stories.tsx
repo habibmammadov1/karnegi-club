@@ -89,7 +89,7 @@ export default function Stories({ stories }: { stories: Story[] }) {
               >
                 <span className="story-chip__ring">
                   <span className="story-chip__face" aria-hidden="true">
-                    {s.mark}
+                    {s.cover ? <img src={s.cover} alt="" /> : s.mark}
                   </span>
                 </span>
                 <span className="story-chip__label">{s.label}</span>
@@ -129,7 +129,7 @@ export default function Stories({ stories }: { stories: Story[] }) {
 
             <div className="viewer__head">
               <span className="viewer__avatar" aria-hidden="true">
-                {story.mark}
+                {story.cover ? <img src={story.cover} alt="" /> : story.mark}
               </span>
               <span className="viewer__name">{story.label}</span>
               <button ref={closeBtn} type="button" className="viewer__close" onClick={close} aria-label="Bağla">
@@ -140,7 +140,7 @@ export default function Stories({ stories }: { stories: Story[] }) {
             </div>
 
             {story.slides.map((sl, i) => (
-              <div key={i} className={`viewer__slide${i === slide ? " is-current" : ""}`} aria-hidden={i !== slide}>
+              <div key={i} className={`viewer__slide${i === slide ? " is-current" : ""}${sl.image ? " has-img" : ""}`} aria-hidden={i !== slide}>
                 {sl.image && <img className="viewer__img" src={sl.image} alt="" />}
                 <div className="viewer__text">
                   {sl.kicker && <p className="viewer__kicker">{sl.kicker}</p>}
@@ -150,7 +150,7 @@ export default function Stories({ stories }: { stories: Story[] }) {
                     <a
                       className="btn btn--white"
                       href={sl.cta.href}
-                      onClick={() => sl.cta?.href.startsWith("#") && close()}
+                      onClick={() => !sl.cta?.href.startsWith("http") && close()}
                       tabIndex={i === slide ? 0 : -1}
                       {...(sl.cta.href.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}
                     >

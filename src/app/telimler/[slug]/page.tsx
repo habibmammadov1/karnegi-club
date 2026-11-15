@@ -39,7 +39,7 @@ export default async function ProgramPage({ params }: { params: Promise<{ slug: 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <section className="wrap phero">
         <nav className="crumbs" aria-label="Səhifə yolu">
-          <Link href="/">Əsas səhifə</Link> / <Link href="/#telimler">Təlimlər</Link>
+          <Link href="/">Əsas səhifə</Link> / <Link href="/telimler">Təlimlər</Link>
         </nav>
         <h1 className="phero__title">{p.title}</h1>
         <p className="phero__lead">{p.lead}</p>
