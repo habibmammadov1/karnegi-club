@@ -10,6 +10,8 @@ export const site = {
   founded: 2011,
   phones: ["+994 55 444 14 00", "+994 77 444 14 00"],
   email: "info@karnegi.az",
+  // WhatsApp düyməsi: nömrə beynəlxalq formatda, "+" və boşluqsuz
+  whatsapp: { number: "994554441400", message: "Salam, təlimlərlə maraqlanıram" },
   address: "Bakı ş., Murtuza Muxtarov küç. 53",
   social: {
     instagram: "https://www.instagram.com/karnegi_klub/",

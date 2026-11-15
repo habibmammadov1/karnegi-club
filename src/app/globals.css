@@ -1434,6 +1434,33 @@ img {
   color: rgba(255, 255, 255, 0.55);
 }
 
+/* ---------- WhatsApp düyməsi ---------- */
+.wa {
+  position: fixed;
+  right: clamp(16px, 2.4vw, 28px);
+  bottom: clamp(16px, 2.4vw, 28px);
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 58px;
+  padding: 0 22px 0 16px;
+  border-radius: 999px;
+  background: #25d366;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 16px;
+  box-shadow: 0 16px 32px -12px rgba(18, 140, 70, 0.75);
+  transition: transform 0.2s, background-color 0.2s;
+}
+.wa:hover {
+  background: #1ebe5a;
+  transform: translateY(-2px);
+}
+.wa:focus-visible {
+  outline-color: var(--ink);
+}
+
 /* ---------- Daxili səhifələr ---------- */
 .section--tight {
   padding-top: clamp(36px, 5vw, 56px);
@@ -1796,6 +1823,14 @@ img {
     font-size: 16px;
   }
   .topbar__info li:not(:first-child) {
+    display: none;
+  }
+  .wa {
+    width: 58px;
+    padding: 0;
+    justify-content: center;
+  }
+  .wa__label {
     display: none;
   }
   .hvideo-wrap {
