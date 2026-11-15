@@ -1,13 +1,30 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-// Ana səhifənin yuxarısındakı video. Brauzerlər səsli avtomatik oxutmanı blokladığı üçün
+// Ana səhifədəki video. Brauzerlər səsli avtomatik oxutmanı blokladığı üçün
 // video səssiz başlayır, səsi istifadəçi düymə ilə açır.
 export default function HeroVideo({ src, poster, label }: { src: string; poster: string; label: string }) {
   const video = useRef<HTMLVideoElement | null>(null);
   const [muted, setMuted] = useState(true);
   const [paused, setPaused] = useState(false);
+  const userPaused = useRef(false);
+
+  // Video ekrana girəndə oxunur, ekrandan çıxanda dayanır
+  useEffect(() => {
+    const v = video.current;
+    if (!v || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (!userPaused.current) v.play().catch(() => {});
+        } else v.pause();
+      },
+      { threshold: 0.35 },
+    );
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
 
   const toggleSound = () => {
     const v = video.current;
@@ -16,6 +33,7 @@ export default function HeroVideo({ src, poster, label }: { src: string; poster:
     if (!v.muted) {
       // Səs açılanda videonu əvvəldən göstər
       v.currentTime = 0;
+      userPaused.current = false;
       v.play().catch(() => {});
     }
     setMuted(v.muted);
@@ -24,6 +42,7 @@ export default function HeroVideo({ src, poster, label }: { src: string; poster:
   const togglePlay = () => {
     const v = video.current;
     if (!v) return;
+    userPaused.current = !v.paused;
     if (v.paused) v.play().catch(() => {});
     else v.pause();
   };

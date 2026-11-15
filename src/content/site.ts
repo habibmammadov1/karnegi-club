@@ -217,11 +217,11 @@ export const clientLogos = [
   { src: "/images/musteriler/11.jpg", name: "Tiens" },
   { src: "/images/musteriler/12.jpg", name: "" },
   { src: "/images/musteriler/13.jpg", name: "Progress Academy" },
-  { src: "/images/musteriler/14.png", name: "Red Bull" },
-  { src: "/images/musteriler/15.png", name: "Toyota" },
-  { src: "/images/musteriler/16.png", name: "Təmiz Dünya" },
-  { src: "/images/musteriler/17.jpg", name: "" },
-  { src: "/images/musteriler/18.png", name: "" },
+  { src: "/images/musteriler/14.jpg", name: "Red Bull" },
+  { src: "/images/musteriler/15.jpg", name: "Toyota" },
+  { src: "/images/musteriler/16.jpg", name: "Təmiz Dünya" },
+  { src: "/images/musteriler/17.jpg", name: "Daxili İşlər Nazirliyi" },
+  { src: "/images/musteriler/18.jpg", name: "" },
 ];
 
 export const reviews = [

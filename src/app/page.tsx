@@ -23,28 +23,50 @@ export default function Home() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <section className="wrap hvideo-wrap">
-        <HeroVideo src={heroVideo.src} poster={heroVideo.poster} label={heroVideo.label} />
-      </section>
-
       <section className="wrap">
         <Stories stories={stories} />
       </section>
 
       <section className="hero wrap">
         <div className="hero__text">
-          <h1 className="hero__title">Danış ki, eşitsinlər.</h1>
+          <p className="hero__eyebrow">
+            <span aria-hidden="true" />
+            Natiqlik və şəxsi inkişaf təlimləri · {site.founded}-ci ildən
+          </p>
+          <h1 className="hero__title">
+            Danış ki, <em>eşitsinlər.</em>
+          </h1>
           <p className="hero__lead">
-            Karnegi Klub 2011-ci ildən insanlara auditoriya qarşısında sərbəst danışmağı, inamla ünsiyyət qurmağı və öz
-            potensialını üzə çıxarmağı öyrədir.
+            Karnegi Klub insanlara auditoriya qarşısında sərbəst danışmağı, inamla ünsiyyət qurmağı və öz potensialını üzə
+            çıxarmağı öyrədir.
           </p>
           <div className="hero__actions">
-            <Link href="/elaqe#muraciet" className="btn btn--blue">Təlimə yazıl</Link>
+            <Link href="/elaqe#muraciet" className="btn btn--blue">
+              Təlimə yazıl
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
             <Link href="/telimler" className="btn btn--ghost">Təlimlərə bax</Link>
           </div>
+          <p className="hero__note">
+            Sualınız var? <a href={`tel:${site.phones[0].replace(/ /g, "")}`}>{site.phones[0]}</a>
+          </p>
         </div>
         <div className="hero__visual">
-          <VoiceWave />
+          <div className="hero__photo">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={photos.portrait} alt={trainer.name} width={700} height={1000} fetchPriority="high" />
+            <VoiceWave />
+            <p className="hero__name">
+              <strong>{trainer.name}</strong>
+              <span>Təlimçi, NLP-Master</span>
+            </p>
+          </div>
+          <p className="hero__badge">
+            <strong>80%</strong>
+            <span>təcrübə</span>
+          </p>
           <figure className="hero__quote">
             <blockquote>Qorxularımızın nə qədər boş olduğunu burada öyrəndik.</blockquote>
             <figcaption>Səməndər Səfərli, məzun</figcaption>
@@ -60,6 +82,10 @@ export default function Home() {
         </dl>
       </section>
 
+      <section className="wrap hvideo-wrap">
+        <HeroVideo src={heroVideo.src} poster={heroVideo.poster} label={heroVideo.label} />
+      </section>
+
       <section className="section wrap">
         <div className="section__head">
           <h2 className="h2">Təlimlər</h2>
@@ -68,15 +94,15 @@ export default function Home() {
         <ProgramList />
       </section>
 
-      <section className="section wrap trainer">
-        <div className="trainer__photo">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={photos.portrait} alt={trainer.name} width={700} height={1000} loading="lazy" />
-        </div>
-        <div className="trainer__body">
-          <h2 className="h2">{trainer.name}</h2>
-          <p className="trainer__role">{trainer.role}</p>
-          <dl className="trainer__nums">
+      <section className="section wrap">
+        <div className="tband">
+          <div>
+            <p className="tband__k">Təlimçi</p>
+            <h2 className="h2">{trainer.name}</h2>
+            <p className="trainer__role">{trainer.role}</p>
+            <Link href="/haqqimizda" className="btn btn--blue trainer__more">Haqqımızda</Link>
+          </div>
+          <dl className="tband__nums">
             {trainer.numbers.map((n) => (
               <div key={n.label}>
                 <dd>{n.value}</dd>
@@ -84,7 +110,6 @@ export default function Home() {
               </div>
             ))}
           </dl>
-          <Link href="/haqqimizda" className="btn btn--ghost trainer__more">Haqqımızda</Link>
         </div>
       </section>
 

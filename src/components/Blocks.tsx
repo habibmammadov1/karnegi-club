@@ -104,14 +104,21 @@ export function ClientLogos({ title = "Müştərilərimiz" }: { title?: string }
         <h2 className="h2">{title}</h2>
         <p className="section__lead">Təlimlərimizdən faydalanan şirkət və təşkilatlar.</p>
       </div>
-      <ul className="logos">
-        {clientLogos.map((c) => (
-          <li key={c.src}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={c.src} alt={c.name || "Müştəri loqosu"} width={190} height={110} loading="lazy" />
-          </li>
-        ))}
-      </ul>
+      {/* Karusel: siyahı iki dəfə göstərilir ki, hərəkət fasiləsiz olsun */}
+      <div className="logos">
+        <div className="logos__track">
+          {[0, 1].map((copy) => (
+            <ul key={copy} aria-hidden={copy === 1 || undefined}>
+              {clientLogos.map((c) => (
+                <li key={c.src}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={c.src} alt={copy === 0 ? c.name || "Müştəri loqosu" : ""} loading="lazy" />
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
